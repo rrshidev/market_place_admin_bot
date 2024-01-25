@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  alembic:
+    # properties
+    image: telegram_bot:latest
+    container_name: tg_bot_alembic
+
+    # settings
+
+    # commands
+    command: /bin/bash -c \
+      "echo '[+] Run migrations' && \
+      alembic stamp head --purge && \
+      alembic revision --autogenerate -m "Migrations" && \
+      alembic upgrade head"
+
+    # dependencies
+    env_file:
+      - ${PWD}/.env
+    depends_on:
+      database:
+        condition: service_healthy
+
+    # attachments
+    volumes:
+      - ${PWD}/:/app
+    networks:
+      - local

@@ -1,0 +1,11 @@
+version: "3.9"
+
+name: "telegram_bot"
+
+volumes:
+  postgres_data_database:
+  redis:
+
+networks:
+  local:
+    driver: bridge
